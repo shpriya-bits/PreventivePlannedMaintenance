@@ -1,0 +1,12 @@
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\bin\Debug\DataLayer.dll.config
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\bin\Debug\DataLayer.dll
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\bin\Debug\DataLayer.pdb
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\bin\Debug\EntityFramework.dll
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\bin\Debug\EntityFramework.xml
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\obj\Debug\DataLayer.csprojAssemblyReference.cache
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\obj\Debug\DataLayer.csproj.CoreCompileInputs.cache
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\obj\Debug\DataLayer.csproj.CopyComplete
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\obj\Debug\DataLayer.dll
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\DataLayer\obj\Debug\DataLayer.pdb

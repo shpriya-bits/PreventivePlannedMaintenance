@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ShipPPMModelStoreContainer" CdmEntityContainer="PPMEntities">
+    <EntitySetMapping Name="Defect">
+      <EntityTypeMapping TypeName="ShipPPMModel.Defect">
+        <MappingFragment StoreEntitySet="Defect">
+          <ScalarProperty Name="DefectId" ColumnName="DefectId" />
+          <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="DateOfOccurance" ColumnName="DateOfOccurance" />
+          <ScalarProperty Name="OperationStatus" ColumnName="OperationStatus" />
+          <ScalarProperty Name="InitialEstimateDateOfCompletion" ColumnName="InitialEstimateDateOfCompletion" />
+          <ScalarProperty Name="RevisedEstimateDateOfCompletion" ColumnName="RevisedEstimateDateOfCompletion" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+          <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+          <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Diary">
+      <EntityTypeMapping TypeName="ShipPPMModel.Diary">
+        <MappingFragment StoreEntitySet="Diary">
+          <ScalarProperty Name="DiaryId" ColumnName="DiaryId" />
+          <ScalarProperty Name="DiaryDate" ColumnName="DiaryDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
+          <ScalarProperty Name="DefectId" ColumnName="DefectId" />
+          <ScalarProperty Name="PpmsId" ColumnName="PpmsId" />
+          <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+          <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+          <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EquipmentMaster">
+      <EntityTypeMapping TypeName="ShipPPMModel.EquipmentMaster">
+        <MappingFragment StoreEntitySet="EquipmentMaster">
+          <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IsParent" ColumnName="IsParent" />
+          <ScalarProperty Name="ParentEquipmentPartId" ColumnName="ParentEquipmentPartId" />
+          <ScalarProperty Name="Compartment" ColumnName="Compartment" />
+          <ScalarProperty Name="IsPhysical" ColumnName="IsPhysical" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+          <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+          <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FinancialCases">
+      <EntityTypeMapping TypeName="ShipPPMModel.FinancialCases">
+        <MappingFragment StoreEntitySet="FinancialCases">
+          <ScalarProperty Name="FinCaseId" ColumnName="FinCaseId" />
+          <ScalarProperty Name="DefectId" ColumnName="DefectId" />
+          <ScalarProperty Name="PlannedScheduleId" ColumnName="PlannedScheduleId" />
+          <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="BudgetaryQuote" ColumnName="BudgetaryQuote" />
+          <ScalarProperty Name="SanctionAmount" ColumnName="SanctionAmount" />
+          <ScalarProperty Name="DeliveryPeriod" ColumnName="DeliveryPeriod" />
+          <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+          <ScalarProperty Name="WorkOrderDate" ColumnName="WorkOrderDate" />
+          <ScalarProperty Name="InitialEstimatedDateOfCompletion" ColumnName="InitialEstimatedDateOfCompletion" />
+          <ScalarProperty Name="RevisedEstimateDateOfCompletion" ColumnName="RevisedEstimateDateOfCompletion" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+          <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+          <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlannedMaintenance">
+      <EntityTypeMapping TypeName="ShipPPMModel.PlannedMaintenance">
+        <MappingFragment StoreEntitySet="PlannedMaintenance">
+          <ScalarProperty Name="PlannedMaintenanceId" ColumnName="PlannedMaintenanceId" />
+          <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Periodicity" ColumnName="Periodicity" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+          <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+          <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlannedMaintenanceSchedule">
+      <EntityTypeMapping TypeName="ShipPPMModel.PlannedMaintenanceSchedule">
+        <MappingFragment StoreEntitySet="PlannedMaintenanceSchedule">
+          <ScalarProperty Name="PlannedMaintenanceId" ColumnName="PlannedMaintenanceId" />
+          <ScalarProperty Name="PlannedMaintenanceScheduleId" ColumnName="PlannedMaintenanceScheduleId" />
+          <ScalarProperty Name="InitialEstimatedDateOfStart" ColumnName="InitialEstimatedDateOfStart" />
+          <ScalarProperty Name="RevisedEstimatedDateOfStart" ColumnName="RevisedEstimatedDateOfStart" />
+          <ScalarProperty Name="InitialEstimatedDateOfCompletion" ColumnName="InitialEstimatedDateOfCompletion" />
+          <ScalarProperty Name="RevisedEstimatedDateOfCompletion" ColumnName="RevisedEstimatedDateOfCompletion" />
+          <ScalarProperty Name="Technician" ColumnName="Technician" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+          <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+          <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ship">
+      <EntityTypeMapping TypeName="ShipPPMModel.Ship">
+        <MappingFragment StoreEntitySet="Ship">
+          <ScalarProperty Name="ShipId" ColumnName="ShipId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Task">
+      <EntityTypeMapping TypeName="ShipPPMModel.Task">
+        <MappingFragment StoreEntitySet="Task">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="DefectId" ColumnName="DefectId" />
+          <ScalarProperty Name="PpmsId" ColumnName="PpmsId" />
+          <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
+          <ScalarProperty Name="FinCaseId" ColumnName="FinCaseId" />
+          <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+          <ScalarProperty Name="InitialEstimatedDateS" ColumnName="InitialEstimatedDateS" />
+          <ScalarProperty Name="RevisedEstimatedDateS" ColumnName="RevisedEstimatedDateS" />
+          <ScalarProperty Name="InitialEstimatedDateC" ColumnName="InitialEstimatedDateC" />
+          <ScalarProperty Name="RevisedEstimatedDateC" ColumnName="RevisedEstimatedDateC" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+          <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+          <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,14 @@
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\bin\Debug\BusinessLayer.dll
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\bin\Debug\BusinessLayer.pdb
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\bin\Debug\System.Configuration.ConfigurationManager.dll
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\bin\Debug\System.Security.AccessControl.dll
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\bin\Debug\System.Security.Permissions.dll
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\bin\Debug\System.Security.Principal.Windows.dll
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\bin\Debug\System.Configuration.ConfigurationManager.xml
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\bin\Debug\System.Security.AccessControl.xml
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\bin\Debug\System.Security.Permissions.xml
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\bin\Debug\System.Security.Principal.Windows.xml
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\obj\Debug\BusinessLayer.csproj.CoreCompileInputs.cache
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\obj\Debug\BusinessLayer.csproj.CopyComplete
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\obj\Debug\BusinessLayer.dll
+D:\M.Tech SE\3rd sem\Dissertion\PreventivePlannedMaintenance\BusinessLayer\obj\Debug\BusinessLayer.pdb

@@ -1,0 +1,219 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShipPPMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Defect">
+    <Key>
+      <PropertyRef Name="DefectId" />
+    </Key>
+    <Property Name="DefectId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EquipmentPartId" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="DateOfOccurance" Type="date" Nullable="false" />
+    <Property Name="OperationStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="InitialEstimateDateOfCompletion" Type="date" />
+    <Property Name="RevisedEstimateDateOfCompletion" Type="date" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedTs" Type="date" />
+    <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChangedTs" Type="date" />
+  </EntityType>
+  <EntityType Name="Diary">
+    <Key>
+      <PropertyRef Name="DiaryId" />
+    </Key>
+    <Property Name="DiaryId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DiaryDate" Type="date" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="EquipmentPartId" Type="nvarchar" MaxLength="50" />
+    <Property Name="DefectId" Type="nvarchar" MaxLength="50" />
+    <Property Name="PpmsId" Type="nvarchar" MaxLength="50" />
+    <Property Name="TaskId" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedTs" Type="datetime" />
+    <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChangedTs" Type="datetime" />
+  </EntityType>
+  <EntityType Name="EquipmentMaster">
+    <Key>
+      <PropertyRef Name="EquipmentPartId" />
+    </Key>
+    <Property Name="EquipmentPartId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="IsParent" Type="bit" Nullable="false" />
+    <Property Name="ParentEquipmentPartId" Type="nvarchar" MaxLength="50" />
+    <Property Name="Compartment" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsPhysical" Type="bit" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedTs" Type="datetime" />
+    <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChangedTs" Type="datetime" />
+  </EntityType>
+  <EntityType Name="FinancialCases">
+    <Key>
+      <PropertyRef Name="FinCaseId" />
+    </Key>
+    <Property Name="FinCaseId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DefectId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PlannedScheduleId" Type="nvarchar" MaxLength="50" />
+    <Property Name="EquipmentPartId" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="BudgetaryQuote" Type="nvarchar" MaxLength="500" />
+    <Property Name="SanctionAmount" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeliveryPeriod" Type="nvarchar" MaxLength="50" />
+    <Property Name="WorkOrder" Type="nvarchar" MaxLength="50" />
+    <Property Name="WorkOrderDate" Type="date" />
+    <Property Name="InitialEstimatedDateOfCompletion" Type="date" />
+    <Property Name="RevisedEstimateDateOfCompletion" Type="date" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedTs" Type="datetime" />
+    <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChangedTs" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PlannedMaintenance">
+    <Key>
+      <PropertyRef Name="PlannedMaintenanceId" />
+    </Key>
+    <Property Name="PlannedMaintenanceId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EquipmentPartId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Periodicity" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedTs" Type="datetime" />
+    <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChangedTs" Type="datetime" />
+  </EntityType>
+  <EntityType Name="PlannedMaintenanceSchedule">
+    <Key>
+      <PropertyRef Name="PlannedMaintenanceScheduleId" />
+    </Key>
+    <Property Name="PlannedMaintenanceId" Type="nvarchar" MaxLength="50" />
+    <Property Name="PlannedMaintenanceScheduleId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="InitialEstimatedDateOfStart" Type="date" />
+    <Property Name="RevisedEstimatedDateOfStart" Type="date" />
+    <Property Name="InitialEstimatedDateOfCompletion" Type="date" />
+    <Property Name="RevisedEstimatedDateOfCompletion" Type="date" />
+    <Property Name="Technician" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedTs" Type="datetime" />
+    <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChangedTs" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Ship">
+    <Key>
+      <PropertyRef Name="ShipId" />
+    </Key>
+    <Property Name="ShipId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Task">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Owner" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DefectId" Type="nvarchar" MaxLength="50" />
+    <Property Name="PpmsId" Type="nvarchar" MaxLength="50" />
+    <Property Name="EquipmentPartId" Type="nvarchar" MaxLength="50" />
+    <Property Name="FinCaseId" Type="nchar" MaxLength="10" />
+    <Property Name="AssignedTo" Type="nvarchar" MaxLength="50" />
+    <Property Name="InitialEstimatedDateS" Type="date" />
+    <Property Name="RevisedEstimatedDateS" Type="date" />
+    <Property Name="InitialEstimatedDateC" Type="date" />
+    <Property Name="RevisedEstimatedDateC" Type="date" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="CreatedTs" Type="datetime" />
+    <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChangedTs" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__Equipment__Paren__286302EC">
+    <End Role="EquipmentMaster" Type="Self.EquipmentMaster" Multiplicity="0..1" />
+    <End Role="EquipmentMaster1" Type="Self.EquipmentMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EquipmentMaster">
+        <PropertyRef Name="EquipmentPartId" />
+      </Principal>
+      <Dependent Role="EquipmentMaster1">
+        <PropertyRef Name="ParentEquipmentPartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_defect_Equip">
+    <End Role="EquipmentMaster" Type="Self.EquipmentMaster" Multiplicity="0..1" />
+    <End Role="Defect" Type="Self.Defect" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EquipmentMaster">
+        <PropertyRef Name="EquipmentPartId" />
+      </Principal>
+      <Dependent Role="Defect">
+        <PropertyRef Name="EquipmentPartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_fin_defect">
+    <End Role="Defect" Type="Self.Defect" Multiplicity="1" />
+    <End Role="FinancialCases" Type="Self.FinancialCases" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Defect">
+        <PropertyRef Name="DefectId" />
+      </Principal>
+      <Dependent Role="FinancialCases">
+        <PropertyRef Name="FinCaseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PPM_Equip">
+    <End Role="EquipmentMaster" Type="Self.EquipmentMaster" Multiplicity="1" />
+    <End Role="PlannedMaintenance" Type="Self.PlannedMaintenance" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EquipmentMaster">
+        <PropertyRef Name="EquipmentPartId" />
+      </Principal>
+      <Dependent Role="PlannedMaintenance">
+        <PropertyRef Name="EquipmentPartId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PPM_PPMS">
+    <End Role="PlannedMaintenance" Type="Self.PlannedMaintenance" Multiplicity="0..1" />
+    <End Role="PlannedMaintenanceSchedule" Type="Self.PlannedMaintenanceSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlannedMaintenance">
+        <PropertyRef Name="PlannedMaintenanceId" />
+      </Principal>
+      <Dependent Role="PlannedMaintenanceSchedule">
+        <PropertyRef Name="PlannedMaintenanceId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ShipPPMModelStoreContainer">
+    <EntitySet Name="Defect" EntityType="Self.Defect" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Diary" EntityType="Self.Diary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EquipmentMaster" EntityType="Self.EquipmentMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FinancialCases" EntityType="Self.FinancialCases" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlannedMaintenance" EntityType="Self.PlannedMaintenance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PlannedMaintenanceSchedule" EntityType="Self.PlannedMaintenanceSchedule" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ship" EntityType="Self.Ship" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Equipment__Paren__286302EC" Association="Self.FK__Equipment__Paren__286302EC">
+      <End Role="EquipmentMaster" EntitySet="EquipmentMaster" />
+      <End Role="EquipmentMaster1" EntitySet="EquipmentMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK_defect_Equip" Association="Self.FK_defect_Equip">
+      <End Role="EquipmentMaster" EntitySet="EquipmentMaster" />
+      <End Role="Defect" EntitySet="Defect" />
+    </AssociationSet>
+    <AssociationSet Name="FK_fin_defect" Association="Self.FK_fin_defect">
+      <End Role="Defect" EntitySet="Defect" />
+      <End Role="FinancialCases" EntitySet="FinancialCases" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PPM_Equip" Association="Self.FK_PPM_Equip">
+      <End Role="EquipmentMaster" EntitySet="EquipmentMaster" />
+      <End Role="PlannedMaintenance" EntitySet="PlannedMaintenance" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PPM_PPMS" Association="Self.FK_PPM_PPMS">
+      <End Role="PlannedMaintenance" EntitySet="PlannedMaintenance" />
+      <End Role="PlannedMaintenanceSchedule" EntitySet="PlannedMaintenanceSchedule" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
