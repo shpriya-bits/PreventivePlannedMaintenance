@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataLayer.Models
 {
-   public class PlannedMaintenance
+    public class DefectModel
     {
     }
 }
