@@ -12,15 +12,15 @@ namespace DataLayer.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class PlannedMaintenance
+    public partial class maintenance_master
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PlannedMaintenance()
+        public maintenance_master()
         {
-            this.PlannedMaintenanceSchedule = new HashSet<PlannedMaintenanceSchedule>();
+            this.maintenance_schedule = new HashSet<maintenance_schedule>();
         }
     
-        public string PlannedMaintenanceId { get; set; }
+        public string MaintenanceMasterId { get; set; }
         public string EquipmentPartId { get; set; }
         public string Description { get; set; }
         public string Periodicity { get; set; }
@@ -28,9 +28,11 @@ namespace DataLayer.Repository
         public Nullable<System.DateTime> CreatedTs { get; set; }
         public string ChangedBy { get; set; }
         public Nullable<System.DateTime> ChangedTs { get; set; }
+        public Nullable<bool> EmergencyMaintenance { get; set; }
+        public long tranx_id { get; set; }
     
-        public virtual EquipmentMaster EquipmentMaster { get; set; }
+        public virtual equipment_master equipment_master { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlannedMaintenanceSchedule> PlannedMaintenanceSchedule { get; set; }
+        public virtual ICollection<maintenance_schedule> maintenance_schedule { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace DataLayer.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class Diary
+    public partial class diary
     {
         public string DiaryId { get; set; }
         public System.DateTime DiaryDate { get; set; }

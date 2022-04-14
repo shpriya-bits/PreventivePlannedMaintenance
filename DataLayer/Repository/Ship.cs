@@ -12,7 +12,7 @@ namespace DataLayer.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class Ship
+    public partial class ship
     {
         public string ShipId { get; set; }
         public string Description { get; set; }

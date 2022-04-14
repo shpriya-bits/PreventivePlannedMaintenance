@@ -4,8 +4,8 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ShipPPMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Defect">
+    <Schema Namespace="PPMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="defect">
           <Key>
             <PropertyRef Name="DefectId" />
           </Key>
@@ -21,7 +21,7 @@
           <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ChangedTs" Type="date" />
         </EntityType>
-        <EntityType Name="Diary">
+        <EntityType Name="diary">
           <Key>
             <PropertyRef Name="DiaryId" />
           </Key>
@@ -38,14 +38,15 @@
           <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ChangedTs" Type="datetime" />
         </EntityType>
-        <EntityType Name="EquipmentMaster">
+        <EntityType Name="equipment_master">
           <Key>
             <PropertyRef Name="EquipmentPartId" />
           </Key>
+          <Property Name="Tranx_Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="EquipmentPartId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="IsParent" Type="bit" Nullable="false" />
           <Property Name="ParentEquipmentPartId" Type="nvarchar" MaxLength="50" />
+          <Property Name="EquipmentType" Type="nvarchar" MaxLength="50" />
           <Property Name="Compartment" Type="nvarchar" MaxLength="50" />
           <Property Name="IsPhysical" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
@@ -74,25 +75,27 @@
           <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ChangedTs" Type="datetime" />
         </EntityType>
-        <EntityType Name="PlannedMaintenance">
+        <EntityType Name="maintenance_master">
           <Key>
-            <PropertyRef Name="PlannedMaintenanceId" />
+            <PropertyRef Name="MaintenanceMasterId" />
           </Key>
-          <Property Name="PlannedMaintenanceId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="tranx_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaintenanceMasterId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="EquipmentPartId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Periodicity" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmergencyMaintenance" Type="bit" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedTs" Type="datetime" />
           <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ChangedTs" Type="datetime" />
         </EntityType>
-        <EntityType Name="PlannedMaintenanceSchedule">
+        <EntityType Name="maintenance_schedule">
           <Key>
-            <PropertyRef Name="PlannedMaintenanceScheduleId" />
+            <PropertyRef Name="MaintenanceScheduleId" />
           </Key>
-          <Property Name="PlannedMaintenanceId" Type="nvarchar" MaxLength="50" />
-          <Property Name="PlannedMaintenanceScheduleId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaintenanceMasterId" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaintenanceScheduleId" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="InitialEstimatedDateOfStart" Type="date" />
           <Property Name="RevisedEstimatedDateOfStart" Type="date" />
           <Property Name="InitialEstimatedDateOfCompletion" Type="date" />
@@ -103,7 +106,7 @@
           <Property Name="ChangedBy" Type="nvarchar" MaxLength="50" />
           <Property Name="ChangedTs" Type="datetime" />
         </EntityType>
-        <EntityType Name="Ship">
+        <EntityType Name="ship">
           <Key>
             <PropertyRef Name="ShipId" />
           </Key>
@@ -132,34 +135,34 @@
           <Property Name="ChangedTs" Type="datetime" />
         </EntityType>
         <Association Name="FK__Equipment__Paren__286302EC">
-          <End Role="EquipmentMaster" Type="Self.EquipmentMaster" Multiplicity="0..1" />
-          <End Role="EquipmentMaster1" Type="Self.EquipmentMaster" Multiplicity="*" />
+          <End Role="equipment_master" Type="Self.equipment_master" Multiplicity="0..1" />
+          <End Role="equipment_master1" Type="Self.equipment_master" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EquipmentMaster">
+            <Principal Role="equipment_master">
               <PropertyRef Name="EquipmentPartId" />
             </Principal>
-            <Dependent Role="EquipmentMaster1">
+            <Dependent Role="equipment_master1">
               <PropertyRef Name="ParentEquipmentPartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_defect_Equip">
-          <End Role="EquipmentMaster" Type="Self.EquipmentMaster" Multiplicity="0..1" />
-          <End Role="Defect" Type="Self.Defect" Multiplicity="*" />
+          <End Role="equipment_master" Type="Self.equipment_master" Multiplicity="0..1" />
+          <End Role="defect" Type="Self.defect" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EquipmentMaster">
+            <Principal Role="equipment_master">
               <PropertyRef Name="EquipmentPartId" />
             </Principal>
-            <Dependent Role="Defect">
+            <Dependent Role="defect">
               <PropertyRef Name="EquipmentPartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_fin_defect">
-          <End Role="Defect" Type="Self.Defect" Multiplicity="1" />
+          <End Role="defect" Type="Self.defect" Multiplicity="1" />
           <End Role="FinancialCases" Type="Self.FinancialCases" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Defect">
+            <Principal Role="defect">
               <PropertyRef Name="DefectId" />
             </Principal>
             <Dependent Role="FinancialCases">
@@ -168,71 +171,102 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PPM_Equip">
-          <End Role="EquipmentMaster" Type="Self.EquipmentMaster" Multiplicity="1" />
-          <End Role="PlannedMaintenance" Type="Self.PlannedMaintenance" Multiplicity="*" />
+          <End Role="equipment_master" Type="Self.equipment_master" Multiplicity="1" />
+          <End Role="maintenance_master" Type="Self.maintenance_master" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EquipmentMaster">
+            <Principal Role="equipment_master">
               <PropertyRef Name="EquipmentPartId" />
             </Principal>
-            <Dependent Role="PlannedMaintenance">
+            <Dependent Role="maintenance_master">
               <PropertyRef Name="EquipmentPartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PPM_PPMS">
-          <End Role="PlannedMaintenance" Type="Self.PlannedMaintenance" Multiplicity="0..1" />
-          <End Role="PlannedMaintenanceSchedule" Type="Self.PlannedMaintenanceSchedule" Multiplicity="*" />
+          <End Role="maintenance_master" Type="Self.maintenance_master" Multiplicity="0..1" />
+          <End Role="maintenance_schedule" Type="Self.maintenance_schedule" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PlannedMaintenance">
-              <PropertyRef Name="PlannedMaintenanceId" />
+            <Principal Role="maintenance_master">
+              <PropertyRef Name="MaintenanceMasterId" />
             </Principal>
-            <Dependent Role="PlannedMaintenanceSchedule">
-              <PropertyRef Name="PlannedMaintenanceId" />
+            <Dependent Role="maintenance_schedule">
+              <PropertyRef Name="MaintenanceMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ShipPPMModelStoreContainer">
-          <EntitySet Name="Defect" EntityType="Self.Defect" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Diary" EntityType="Self.Diary" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EquipmentMaster" EntityType="Self.EquipmentMaster" Schema="dbo" store:Type="Tables" />
+        <Function Name="sp_eqpt_list" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="PPMModelStoreContainer">
+          <EntitySet Name="defect" EntityType="Self.defect" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="diary" EntityType="Self.diary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="equipment_master" EntityType="Self.equipment_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FinancialCases" EntityType="Self.FinancialCases" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PlannedMaintenance" EntityType="Self.PlannedMaintenance" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PlannedMaintenanceSchedule" EntityType="Self.PlannedMaintenanceSchedule" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Ship" EntityType="Self.Ship" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="maintenance_master" EntityType="Self.maintenance_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="maintenance_schedule" EntityType="Self.maintenance_schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ship" EntityType="Self.ship" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Task" EntityType="Self.Task" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Equipment__Paren__286302EC" Association="Self.FK__Equipment__Paren__286302EC">
-            <End Role="EquipmentMaster" EntitySet="EquipmentMaster" />
-            <End Role="EquipmentMaster1" EntitySet="EquipmentMaster" />
+            <End Role="equipment_master" EntitySet="equipment_master" />
+            <End Role="equipment_master1" EntitySet="equipment_master" />
           </AssociationSet>
           <AssociationSet Name="FK_defect_Equip" Association="Self.FK_defect_Equip">
-            <End Role="EquipmentMaster" EntitySet="EquipmentMaster" />
-            <End Role="Defect" EntitySet="Defect" />
+            <End Role="equipment_master" EntitySet="equipment_master" />
+            <End Role="defect" EntitySet="defect" />
           </AssociationSet>
           <AssociationSet Name="FK_fin_defect" Association="Self.FK_fin_defect">
-            <End Role="Defect" EntitySet="Defect" />
+            <End Role="defect" EntitySet="defect" />
             <End Role="FinancialCases" EntitySet="FinancialCases" />
           </AssociationSet>
           <AssociationSet Name="FK_PPM_Equip" Association="Self.FK_PPM_Equip">
-            <End Role="EquipmentMaster" EntitySet="EquipmentMaster" />
-            <End Role="PlannedMaintenance" EntitySet="PlannedMaintenance" />
+            <End Role="equipment_master" EntitySet="equipment_master" />
+            <End Role="maintenance_master" EntitySet="maintenance_master" />
           </AssociationSet>
           <AssociationSet Name="FK_PPM_PPMS" Association="Self.FK_PPM_PPMS">
-            <End Role="PlannedMaintenance" EntitySet="PlannedMaintenance" />
-            <End Role="PlannedMaintenanceSchedule" EntitySet="PlannedMaintenanceSchedule" />
+            <End Role="maintenance_master" EntitySet="maintenance_master" />
+            <End Role="maintenance_schedule" EntitySet="maintenance_schedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ShipPPMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Defect">
+      <Schema Namespace="PPMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PPMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="defect" EntityType="PPMModel.defect" />
+          <EntitySet Name="diary" EntityType="PPMModel.diary" />
+          <EntitySet Name="equipment_master" EntityType="PPMModel.equipment_master" />
+          <EntitySet Name="FinancialCases" EntityType="PPMModel.FinancialCases" />
+          <EntitySet Name="maintenance_master" EntityType="PPMModel.maintenance_master" />
+          <EntitySet Name="maintenance_schedule" EntityType="PPMModel.maintenance_schedule" />
+          <EntitySet Name="ship" EntityType="PPMModel.ship" />
+          <EntitySet Name="Task" EntityType="PPMModel.Task" />
+          <AssociationSet Name="FK_defect_Equip" Association="PPMModel.FK_defect_Equip">
+            <End Role="equipment_master" EntitySet="equipment_master" />
+            <End Role="defect" EntitySet="defect" />
+          </AssociationSet>
+          <AssociationSet Name="FK_fin_defect" Association="PPMModel.FK_fin_defect">
+            <End Role="defect" EntitySet="defect" />
+            <End Role="FinancialCases" EntitySet="FinancialCases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Equipment__Paren__286302EC" Association="PPMModel.FK__Equipment__Paren__286302EC">
+            <End Role="equipment_master" EntitySet="equipment_master" />
+            <End Role="equipment_master1" EntitySet="equipment_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PPM_Equip" Association="PPMModel.FK_PPM_Equip">
+            <End Role="equipment_master" EntitySet="equipment_master" />
+            <End Role="maintenance_master" EntitySet="maintenance_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PPM_PPMS" Association="PPMModel.FK_PPM_PPMS">
+            <End Role="maintenance_master" EntitySet="maintenance_master" />
+            <End Role="maintenance_schedule" EntitySet="maintenance_schedule" />
+          </AssociationSet>
+          <FunctionImport Name="sp_eqpt_list" />
+        </EntityContainer>
+        <EntityType Name="defect">
           <Key>
             <PropertyRef Name="DefectId" />
           </Key>
-          <Property Name="DefectId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DefectId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EquipmentPartId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="DateOfOccurance" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="OperationStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="InitialEstimateDateOfCompletion" Type="DateTime" Precision="0" />
@@ -241,16 +275,16 @@
           <Property Name="CreatedTs" Type="DateTime" Precision="0" />
           <Property Name="ChangedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ChangedTs" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="EquipmentMaster" Relationship="Self.FK_defect_Equip" FromRole="Defect" ToRole="EquipmentMaster" />
-          <NavigationProperty Name="FinancialCases" Relationship="Self.FK_fin_defect" FromRole="Defect" ToRole="FinancialCases" />
+          <NavigationProperty Name="equipment_master" Relationship="PPMModel.FK_defect_Equip" FromRole="defect" ToRole="equipment_master" />
+          <NavigationProperty Name="FinancialCases" Relationship="PPMModel.FK_fin_defect" FromRole="defect" ToRole="FinancialCases" />
         </EntityType>
-        <EntityType Name="Diary">
+        <EntityType Name="diary">
           <Key>
             <PropertyRef Name="DiaryId" />
           </Key>
-          <Property Name="DiaryId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DiaryId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DiaryDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="EquipmentPartId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DefectId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PpmsId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -261,13 +295,13 @@
           <Property Name="ChangedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ChangedTs" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="EquipmentMaster">
+        <EntityType Name="equipment_master">
           <Key>
             <PropertyRef Name="EquipmentPartId" />
           </Key>
-          <Property Name="EquipmentPartId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="IsParent" Type="Boolean" Nullable="false" />
+          <Property Name="Tranx_Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EquipmentPartId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="ParentEquipmentPartId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Compartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IsPhysical" Type="Boolean" />
@@ -275,17 +309,18 @@
           <Property Name="CreatedTs" Type="DateTime" Precision="3" />
           <Property Name="ChangedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ChangedTs" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Defect" Relationship="Self.FK_defect_Equip" FromRole="EquipmentMaster" ToRole="Defect" />
-          <NavigationProperty Name="EquipmentMaster1" Relationship="Self.FK__Equipment__Paren__286302EC" FromRole="EquipmentMaster" ToRole="EquipmentMaster1" />
-          <NavigationProperty Name="EquipmentMaster2" Relationship="Self.FK__Equipment__Paren__286302EC" FromRole="EquipmentMaster1" ToRole="EquipmentMaster" />
-          <NavigationProperty Name="PlannedMaintenance" Relationship="Self.FK_PPM_Equip" FromRole="EquipmentMaster" ToRole="PlannedMaintenance" />
+          <NavigationProperty Name="defect" Relationship="PPMModel.FK_defect_Equip" FromRole="equipment_master" ToRole="defect" />
+          <NavigationProperty Name="equipment_master1" Relationship="PPMModel.FK__Equipment__Paren__286302EC" FromRole="equipment_master" ToRole="equipment_master1" />
+          <NavigationProperty Name="equipment_master2" Relationship="PPMModel.FK__Equipment__Paren__286302EC" FromRole="equipment_master1" ToRole="equipment_master" />
+          <NavigationProperty Name="maintenance_master" Relationship="PPMModel.FK_PPM_Equip" FromRole="equipment_master" ToRole="maintenance_master" />
+          <Property Name="EquipmentType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="FinancialCases">
           <Key>
             <PropertyRef Name="FinCaseId" />
           </Key>
-          <Property Name="FinCaseId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="DefectId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FinCaseId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DefectId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PlannedScheduleId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EquipmentPartId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
@@ -300,29 +335,31 @@
           <Property Name="CreatedTs" Type="DateTime" Precision="3" />
           <Property Name="ChangedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ChangedTs" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Defect" Relationship="Self.FK_fin_defect" FromRole="FinancialCases" ToRole="Defect" />
+          <NavigationProperty Name="defect" Relationship="PPMModel.FK_fin_defect" FromRole="FinancialCases" ToRole="defect" />
         </EntityType>
-        <EntityType Name="PlannedMaintenance">
+        <EntityType Name="maintenance_master">
           <Key>
-            <PropertyRef Name="PlannedMaintenanceId" />
+            <PropertyRef Name="MaintenanceMasterId" />
           </Key>
-          <Property Name="PlannedMaintenanceId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="EquipmentPartId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaintenanceMasterId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EquipmentPartId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Periodicity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedTs" Type="DateTime" Precision="3" />
           <Property Name="ChangedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ChangedTs" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="EquipmentMaster" Relationship="Self.FK_PPM_Equip" FromRole="PlannedMaintenance" ToRole="EquipmentMaster" />
-          <NavigationProperty Name="PlannedMaintenanceSchedule" Relationship="Self.FK_PPM_PPMS" FromRole="PlannedMaintenance" ToRole="PlannedMaintenanceSchedule" />
+          <NavigationProperty Name="equipment_master" Relationship="PPMModel.FK_PPM_Equip" FromRole="maintenance_master" ToRole="equipment_master" />
+          <NavigationProperty Name="maintenance_schedule" Relationship="PPMModel.FK_PPM_PPMS" FromRole="maintenance_master" ToRole="maintenance_schedule" />
+          <Property Name="EmergencyMaintenance" Type="Boolean" />
+          <Property Name="tranx_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
-        <EntityType Name="PlannedMaintenanceSchedule">
+        <EntityType Name="maintenance_schedule">
           <Key>
-            <PropertyRef Name="PlannedMaintenanceScheduleId" />
+            <PropertyRef Name="MaintenanceScheduleId" />
           </Key>
-          <Property Name="PlannedMaintenanceId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PlannedMaintenanceScheduleId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MaintenanceMasterId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaintenanceScheduleId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="InitialEstimatedDateOfStart" Type="DateTime" Precision="0" />
           <Property Name="RevisedEstimatedDateOfStart" Type="DateTime" Precision="0" />
           <Property Name="InitialEstimatedDateOfCompletion" Type="DateTime" Precision="0" />
@@ -332,13 +369,13 @@
           <Property Name="CreatedTs" Type="DateTime" Precision="3" />
           <Property Name="ChangedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ChangedTs" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="PlannedMaintenance" Relationship="Self.FK_PPM_PPMS" FromRole="PlannedMaintenanceSchedule" ToRole="PlannedMaintenance" />
+          <NavigationProperty Name="maintenance_master" Relationship="PPMModel.FK_PPM_PPMS" FromRole="maintenance_schedule" ToRole="maintenance_master" />
         </EntityType>
-        <EntityType Name="Ship">
+        <EntityType Name="ship">
           <Key>
             <PropertyRef Name="ShipId" />
           </Key>
-          <Property Name="ShipId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShipId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Task">
@@ -346,8 +383,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Owner" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Owner" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DefectId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PpmsId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EquipmentPartId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -363,22 +400,22 @@
           <Property Name="ChangedTs" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_defect_Equip">
-          <End Role="EquipmentMaster" Type="Self.EquipmentMaster" Multiplicity="0..1" />
-          <End Role="Defect" Type="Self.Defect" Multiplicity="*" />
+          <End Type="PPMModel.equipment_master" Role="equipment_master" Multiplicity="0..1" />
+          <End Type="PPMModel.defect" Role="defect" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EquipmentMaster">
+            <Principal Role="equipment_master">
               <PropertyRef Name="EquipmentPartId" />
             </Principal>
-            <Dependent Role="Defect">
+            <Dependent Role="defect">
               <PropertyRef Name="EquipmentPartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_fin_defect">
-          <End Role="Defect" Type="Self.Defect" Multiplicity="1" />
-          <End Role="FinancialCases" Type="Self.FinancialCases" Multiplicity="0..1" />
+          <End Type="PPMModel.defect" Role="defect" Multiplicity="1" />
+          <End Type="PPMModel.FinancialCases" Role="FinancialCases" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="Defect">
+            <Principal Role="defect">
               <PropertyRef Name="DefectId" />
             </Principal>
             <Dependent Role="FinancialCases">
@@ -387,211 +424,185 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Equipment__Paren__286302EC">
-          <End Role="EquipmentMaster" Type="Self.EquipmentMaster" Multiplicity="0..1" />
-          <End Role="EquipmentMaster1" Type="Self.EquipmentMaster" Multiplicity="*" />
+          <End Type="PPMModel.equipment_master" Role="equipment_master" Multiplicity="0..1" />
+          <End Type="PPMModel.equipment_master" Role="equipment_master1" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EquipmentMaster">
+            <Principal Role="equipment_master">
               <PropertyRef Name="EquipmentPartId" />
             </Principal>
-            <Dependent Role="EquipmentMaster1">
+            <Dependent Role="equipment_master1">
               <PropertyRef Name="ParentEquipmentPartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PPM_Equip">
-          <End Role="EquipmentMaster" Type="Self.EquipmentMaster" Multiplicity="1" />
-          <End Role="PlannedMaintenance" Type="Self.PlannedMaintenance" Multiplicity="*" />
+          <End Type="PPMModel.equipment_master" Role="equipment_master" Multiplicity="1" />
+          <End Type="PPMModel.maintenance_master" Role="maintenance_master" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="EquipmentMaster">
+            <Principal Role="equipment_master">
               <PropertyRef Name="EquipmentPartId" />
             </Principal>
-            <Dependent Role="PlannedMaintenance">
+            <Dependent Role="maintenance_master">
               <PropertyRef Name="EquipmentPartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PPM_PPMS">
-          <End Role="PlannedMaintenance" Type="Self.PlannedMaintenance" Multiplicity="0..1" />
-          <End Role="PlannedMaintenanceSchedule" Type="Self.PlannedMaintenanceSchedule" Multiplicity="*" />
+          <End Type="PPMModel.maintenance_master" Role="maintenance_master" Multiplicity="0..1" />
+          <End Type="PPMModel.maintenance_schedule" Role="maintenance_schedule" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PlannedMaintenance">
-              <PropertyRef Name="PlannedMaintenanceId" />
+            <Principal Role="maintenance_master">
+              <PropertyRef Name="MaintenanceMasterId" />
             </Principal>
-            <Dependent Role="PlannedMaintenanceSchedule">
-              <PropertyRef Name="PlannedMaintenanceId" />
+            <Dependent Role="maintenance_schedule">
+              <PropertyRef Name="MaintenanceMasterId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PPMEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Defect" EntityType="Self.Defect" />
-          <EntitySet Name="Diary" EntityType="Self.Diary" />
-          <EntitySet Name="EquipmentMaster" EntityType="Self.EquipmentMaster" />
-          <EntitySet Name="FinancialCases" EntityType="Self.FinancialCases" />
-          <EntitySet Name="PlannedMaintenance" EntityType="Self.PlannedMaintenance" />
-          <EntitySet Name="PlannedMaintenanceSchedule" EntityType="Self.PlannedMaintenanceSchedule" />
-          <EntitySet Name="Ship" EntityType="Self.Ship" />
-          <EntitySet Name="Task" EntityType="Self.Task" />
-          <AssociationSet Name="FK_defect_Equip" Association="Self.FK_defect_Equip">
-            <End Role="EquipmentMaster" EntitySet="EquipmentMaster" />
-            <End Role="Defect" EntitySet="Defect" />
-          </AssociationSet>
-          <AssociationSet Name="FK_fin_defect" Association="Self.FK_fin_defect">
-            <End Role="Defect" EntitySet="Defect" />
-            <End Role="FinancialCases" EntitySet="FinancialCases" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Equipment__Paren__286302EC" Association="Self.FK__Equipment__Paren__286302EC">
-            <End Role="EquipmentMaster" EntitySet="EquipmentMaster" />
-            <End Role="EquipmentMaster1" EntitySet="EquipmentMaster" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PPM_Equip" Association="Self.FK_PPM_Equip">
-            <End Role="EquipmentMaster" EntitySet="EquipmentMaster" />
-            <End Role="PlannedMaintenance" EntitySet="PlannedMaintenance" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PPM_PPMS" Association="Self.FK_PPM_PPMS">
-            <End Role="PlannedMaintenance" EntitySet="PlannedMaintenance" />
-            <End Role="PlannedMaintenanceSchedule" EntitySet="PlannedMaintenanceSchedule" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ShipPPMModelStoreContainer" CdmEntityContainer="PPMEntities">
-          <EntitySetMapping Name="Defect">
-            <EntityTypeMapping TypeName="ShipPPMModel.Defect">
-              <MappingFragment StoreEntitySet="Defect">
-                <ScalarProperty Name="DefectId" ColumnName="DefectId" />
-                <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="DateOfOccurance" ColumnName="DateOfOccurance" />
-                <ScalarProperty Name="OperationStatus" ColumnName="OperationStatus" />
-                <ScalarProperty Name="InitialEstimateDateOfCompletion" ColumnName="InitialEstimateDateOfCompletion" />
+        <EntityContainerMapping StorageEntityContainer="PPMModelStoreContainer" CdmEntityContainer="PPMEntities">
+          <EntitySetMapping Name="defect">
+            <EntityTypeMapping TypeName="PPMModel.defect">
+              <MappingFragment StoreEntitySet="defect">
+                <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="RevisedEstimateDateOfCompletion" ColumnName="RevisedEstimateDateOfCompletion" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
-                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
-                <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Diary">
-            <EntityTypeMapping TypeName="ShipPPMModel.Diary">
-              <MappingFragment StoreEntitySet="Diary">
-                <ScalarProperty Name="DiaryId" ColumnName="DiaryId" />
-                <ScalarProperty Name="DiaryDate" ColumnName="DiaryDate" />
+                <ScalarProperty Name="InitialEstimateDateOfCompletion" ColumnName="InitialEstimateDateOfCompletion" />
+                <ScalarProperty Name="OperationStatus" ColumnName="OperationStatus" />
+                <ScalarProperty Name="DateOfOccurance" ColumnName="DateOfOccurance" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
                 <ScalarProperty Name="DefectId" ColumnName="DefectId" />
-                <ScalarProperty Name="PpmsId" ColumnName="PpmsId" />
-                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
-                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
-                <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="EquipmentMaster">
-            <EntityTypeMapping TypeName="ShipPPMModel.EquipmentMaster">
-              <MappingFragment StoreEntitySet="EquipmentMaster">
+          <EntitySetMapping Name="diary">
+            <EntityTypeMapping TypeName="PPMModel.diary">
+              <MappingFragment StoreEntitySet="diary">
+                <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="PpmsId" ColumnName="PpmsId" />
+                <ScalarProperty Name="DefectId" ColumnName="DefectId" />
                 <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="IsParent" ColumnName="IsParent" />
-                <ScalarProperty Name="ParentEquipmentPartId" ColumnName="ParentEquipmentPartId" />
-                <ScalarProperty Name="Compartment" ColumnName="Compartment" />
-                <ScalarProperty Name="IsPhysical" ColumnName="IsPhysical" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
-                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="DiaryDate" ColumnName="DiaryDate" />
+                <ScalarProperty Name="DiaryId" ColumnName="DiaryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="equipment_master">
+            <EntityTypeMapping TypeName="PPMModel.equipment_master">
+              <MappingFragment StoreEntitySet="equipment_master">
+                <ScalarProperty Name="EquipmentType" ColumnName="EquipmentType" />
                 <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsPhysical" ColumnName="IsPhysical" />
+                <ScalarProperty Name="Compartment" ColumnName="Compartment" />
+                <ScalarProperty Name="ParentEquipmentPartId" ColumnName="ParentEquipmentPartId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
+                <ScalarProperty Name="Tranx_Id" ColumnName="Tranx_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="FinancialCases">
-            <EntityTypeMapping TypeName="ShipPPMModel.FinancialCases">
+            <EntityTypeMapping TypeName="PPMModel.FinancialCases">
               <MappingFragment StoreEntitySet="FinancialCases">
-                <ScalarProperty Name="FinCaseId" ColumnName="FinCaseId" />
-                <ScalarProperty Name="DefectId" ColumnName="DefectId" />
-                <ScalarProperty Name="PlannedScheduleId" ColumnName="PlannedScheduleId" />
-                <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="BudgetaryQuote" ColumnName="BudgetaryQuote" />
-                <ScalarProperty Name="SanctionAmount" ColumnName="SanctionAmount" />
-                <ScalarProperty Name="DeliveryPeriod" ColumnName="DeliveryPeriod" />
-                <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
-                <ScalarProperty Name="WorkOrderDate" ColumnName="WorkOrderDate" />
-                <ScalarProperty Name="InitialEstimatedDateOfCompletion" ColumnName="InitialEstimatedDateOfCompletion" />
+                <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="RevisedEstimateDateOfCompletion" ColumnName="RevisedEstimateDateOfCompletion" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
-                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
-                <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PlannedMaintenance">
-            <EntityTypeMapping TypeName="ShipPPMModel.PlannedMaintenance">
-              <MappingFragment StoreEntitySet="PlannedMaintenance">
-                <ScalarProperty Name="PlannedMaintenanceId" ColumnName="PlannedMaintenanceId" />
-                <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Periodicity" ColumnName="Periodicity" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
-                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
-                <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PlannedMaintenanceSchedule">
-            <EntityTypeMapping TypeName="ShipPPMModel.PlannedMaintenanceSchedule">
-              <MappingFragment StoreEntitySet="PlannedMaintenanceSchedule">
-                <ScalarProperty Name="PlannedMaintenanceId" ColumnName="PlannedMaintenanceId" />
-                <ScalarProperty Name="PlannedMaintenanceScheduleId" ColumnName="PlannedMaintenanceScheduleId" />
-                <ScalarProperty Name="InitialEstimatedDateOfStart" ColumnName="InitialEstimatedDateOfStart" />
-                <ScalarProperty Name="RevisedEstimatedDateOfStart" ColumnName="RevisedEstimatedDateOfStart" />
                 <ScalarProperty Name="InitialEstimatedDateOfCompletion" ColumnName="InitialEstimatedDateOfCompletion" />
-                <ScalarProperty Name="RevisedEstimatedDateOfCompletion" ColumnName="RevisedEstimatedDateOfCompletion" />
-                <ScalarProperty Name="Technician" ColumnName="Technician" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
-                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
-                <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+                <ScalarProperty Name="WorkOrderDate" ColumnName="WorkOrderDate" />
+                <ScalarProperty Name="WorkOrder" ColumnName="WorkOrder" />
+                <ScalarProperty Name="DeliveryPeriod" ColumnName="DeliveryPeriod" />
+                <ScalarProperty Name="SanctionAmount" ColumnName="SanctionAmount" />
+                <ScalarProperty Name="BudgetaryQuote" ColumnName="BudgetaryQuote" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
+                <ScalarProperty Name="PlannedScheduleId" ColumnName="PlannedScheduleId" />
+                <ScalarProperty Name="DefectId" ColumnName="DefectId" />
+                <ScalarProperty Name="FinCaseId" ColumnName="FinCaseId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Ship">
-            <EntityTypeMapping TypeName="ShipPPMModel.Ship">
-              <MappingFragment StoreEntitySet="Ship">
-                <ScalarProperty Name="ShipId" ColumnName="ShipId" />
+          <EntitySetMapping Name="maintenance_master">
+            <EntityTypeMapping TypeName="PPMModel.maintenance_master">
+              <MappingFragment StoreEntitySet="maintenance_master">
+                <ScalarProperty Name="tranx_id" ColumnName="tranx_id" />
+                <ScalarProperty Name="EmergencyMaintenance" ColumnName="EmergencyMaintenance" />
+                <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Periodicity" ColumnName="Periodicity" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
+                <ScalarProperty Name="MaintenanceMasterId" ColumnName="MaintenanceMasterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="maintenance_schedule">
+            <EntityTypeMapping TypeName="PPMModel.maintenance_schedule">
+              <MappingFragment StoreEntitySet="maintenance_schedule">
+                <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Technician" ColumnName="Technician" />
+                <ScalarProperty Name="RevisedEstimatedDateOfCompletion" ColumnName="RevisedEstimatedDateOfCompletion" />
+                <ScalarProperty Name="InitialEstimatedDateOfCompletion" ColumnName="InitialEstimatedDateOfCompletion" />
+                <ScalarProperty Name="RevisedEstimatedDateOfStart" ColumnName="RevisedEstimatedDateOfStart" />
+                <ScalarProperty Name="InitialEstimatedDateOfStart" ColumnName="InitialEstimatedDateOfStart" />
+                <ScalarProperty Name="MaintenanceScheduleId" ColumnName="MaintenanceScheduleId" />
+                <ScalarProperty Name="MaintenanceMasterId" ColumnName="MaintenanceMasterId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ship">
+            <EntityTypeMapping TypeName="PPMModel.ship">
+              <MappingFragment StoreEntitySet="ship">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ShipId" ColumnName="ShipId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Task">
-            <EntityTypeMapping TypeName="ShipPPMModel.Task">
+            <EntityTypeMapping TypeName="PPMModel.Task">
               <MappingFragment StoreEntitySet="Task">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="DefectId" ColumnName="DefectId" />
-                <ScalarProperty Name="PpmsId" ColumnName="PpmsId" />
-                <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
-                <ScalarProperty Name="FinCaseId" ColumnName="FinCaseId" />
-                <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
-                <ScalarProperty Name="InitialEstimatedDateS" ColumnName="InitialEstimatedDateS" />
-                <ScalarProperty Name="RevisedEstimatedDateS" ColumnName="RevisedEstimatedDateS" />
-                <ScalarProperty Name="InitialEstimatedDateC" ColumnName="InitialEstimatedDateC" />
-                <ScalarProperty Name="RevisedEstimatedDateC" ColumnName="RevisedEstimatedDateC" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
-                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
                 <ScalarProperty Name="ChangedTs" ColumnName="ChangedTs" />
+                <ScalarProperty Name="ChangedBy" ColumnName="ChangedBy" />
+                <ScalarProperty Name="CreatedTs" ColumnName="CreatedTs" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RevisedEstimatedDateC" ColumnName="RevisedEstimatedDateC" />
+                <ScalarProperty Name="InitialEstimatedDateC" ColumnName="InitialEstimatedDateC" />
+                <ScalarProperty Name="RevisedEstimatedDateS" ColumnName="RevisedEstimatedDateS" />
+                <ScalarProperty Name="InitialEstimatedDateS" ColumnName="InitialEstimatedDateS" />
+                <ScalarProperty Name="AssignedTo" ColumnName="AssignedTo" />
+                <ScalarProperty Name="FinCaseId" ColumnName="FinCaseId" />
+                <ScalarProperty Name="EquipmentPartId" ColumnName="EquipmentPartId" />
+                <ScalarProperty Name="PpmsId" ColumnName="PpmsId" />
+                <ScalarProperty Name="DefectId" ColumnName="DefectId" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_eqpt_list" FunctionName="PPMModel.Store.sp_eqpt_list" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -12,7 +12,7 @@ namespace DataLayer.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class Defect
+    public partial class defect
     {
         public string DefectId { get; set; }
         public string EquipmentPartId { get; set; }
@@ -26,7 +26,7 @@ namespace DataLayer.Repository
         public string ChangedBy { get; set; }
         public Nullable<System.DateTime> ChangedTs { get; set; }
     
-        public virtual EquipmentMaster EquipmentMaster { get; set; }
+        public virtual equipment_master equipment_master { get; set; }
         public virtual FinancialCases FinancialCases { get; set; }
     }
 }

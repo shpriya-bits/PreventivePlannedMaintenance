@@ -12,19 +12,19 @@ namespace DataLayer.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class EquipmentMaster
+    public partial class equipment_master
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public EquipmentMaster()
+        public equipment_master()
         {
-            this.Defect = new HashSet<Defect>();
-            this.EquipmentMaster1 = new HashSet<EquipmentMaster>();
-            this.PlannedMaintenance = new HashSet<PlannedMaintenance>();
+            this.defect = new HashSet<defect>();
+            this.equipment_master1 = new HashSet<equipment_master>();
+            this.maintenance_master = new HashSet<maintenance_master>();
         }
     
+        public long Tranx_Id { get; set; }
         public string EquipmentPartId { get; set; }
         public string Description { get; set; }
-        public bool IsParent { get; set; }
         public string ParentEquipmentPartId { get; set; }
         public string Compartment { get; set; }
         public Nullable<bool> IsPhysical { get; set; }
@@ -32,13 +32,14 @@ namespace DataLayer.Repository
         public Nullable<System.DateTime> CreatedTs { get; set; }
         public string ChangedBy { get; set; }
         public Nullable<System.DateTime> ChangedTs { get; set; }
+        public string EquipmentType { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Defect> Defect { get; set; }
+        public virtual ICollection<defect> defect { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<EquipmentMaster> EquipmentMaster1 { get; set; }
-        public virtual EquipmentMaster EquipmentMaster2 { get; set; }
+        public virtual ICollection<equipment_master> equipment_master1 { get; set; }
+        public virtual equipment_master equipment_master2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlannedMaintenance> PlannedMaintenance { get; set; }
+        public virtual ICollection<maintenance_master> maintenance_master { get; set; }
     }
 }

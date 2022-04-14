@@ -31,6 +31,6 @@ namespace DataLayer.Repository
         public string ChangedBy { get; set; }
         public Nullable<System.DateTime> ChangedTs { get; set; }
     
-        public virtual Defect Defect { get; set; }
+        public virtual defect defect { get; set; }
     }
 }

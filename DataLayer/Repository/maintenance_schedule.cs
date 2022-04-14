@@ -12,10 +12,10 @@ namespace DataLayer.Repository
     using System;
     using System.Collections.Generic;
     
-    public partial class PlannedMaintenanceSchedule
+    public partial class maintenance_schedule
     {
-        public string PlannedMaintenanceId { get; set; }
-        public string PlannedMaintenanceScheduleId { get; set; }
+        public string MaintenanceMasterId { get; set; }
+        public string MaintenanceScheduleId { get; set; }
         public Nullable<System.DateTime> InitialEstimatedDateOfStart { get; set; }
         public Nullable<System.DateTime> RevisedEstimatedDateOfStart { get; set; }
         public Nullable<System.DateTime> InitialEstimatedDateOfCompletion { get; set; }
@@ -26,6 +26,6 @@ namespace DataLayer.Repository
         public string ChangedBy { get; set; }
         public Nullable<System.DateTime> ChangedTs { get; set; }
     
-        public virtual PlannedMaintenance PlannedMaintenance { get; set; }
+        public virtual maintenance_master maintenance_master { get; set; }
     }
 }

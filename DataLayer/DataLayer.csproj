@@ -37,24 +37,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Models\DefectModel.cs" />
-    <Compile Include="Models\EquipmentMasterModel.cs" />
-    <Compile Include="Models\PlannedMaintenanceModel.cs" />
-    <Compile Include="Repository\Defect.cs">
+    <Compile Include="Models\Equipment_masterModel.cs" />
+    <Compile Include="Models\Maintenance_masterModel.cs" />
+    <Compile Include="Repository\defect.cs">
       <DependentUpon>PPMEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\Diary.cs">
+    <Compile Include="Repository\diary.cs">
       <DependentUpon>PPMEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\EquipmentMaster.cs">
+    <Compile Include="Repository\equipment_master.cs">
       <DependentUpon>PPMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\FinancialCases.cs">
       <DependentUpon>PPMEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\PlannedMaintenance.cs">
+    <Compile Include="Repository\maintenance_master.cs">
       <DependentUpon>PPMEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repository\PlannedMaintenanceSchedule.cs">
+    <Compile Include="Repository\maintenance_schedule.cs">
       <DependentUpon>PPMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\PPMEntities.Context.cs">
@@ -72,7 +72,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PPMEntities.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Repository\Ship.cs">
+    <Compile Include="Repository\ship.cs">
       <DependentUpon>PPMEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Repository\Task.cs">

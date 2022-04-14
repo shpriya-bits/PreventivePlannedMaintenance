@@ -12,6 +12,8 @@ namespace DataLayer.Repository
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PPMEntities : DbContext
     {
@@ -25,13 +27,18 @@ namespace DataLayer.Repository
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Defect> Defect { get; set; }
-        public virtual DbSet<Diary> Diary { get; set; }
-        public virtual DbSet<EquipmentMaster> EquipmentMaster { get; set; }
+        public virtual DbSet<defect> defect { get; set; }
+        public virtual DbSet<diary> diary { get; set; }
+        public virtual DbSet<equipment_master> equipment_master { get; set; }
         public virtual DbSet<FinancialCases> FinancialCases { get; set; }
-        public virtual DbSet<PlannedMaintenance> PlannedMaintenance { get; set; }
-        public virtual DbSet<PlannedMaintenanceSchedule> PlannedMaintenanceSchedule { get; set; }
-        public virtual DbSet<Ship> Ship { get; set; }
+        public virtual DbSet<maintenance_master> maintenance_master { get; set; }
+        public virtual DbSet<maintenance_schedule> maintenance_schedule { get; set; }
+        public virtual DbSet<ship> ship { get; set; }
         public virtual DbSet<Task> Task { get; set; }
+    
+        public virtual int sp_eqpt_list()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_eqpt_list");
+        }
     }
 }
