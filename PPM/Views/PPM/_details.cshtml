@@ -1,0 +1,107 @@
+﻿<div align="right" style="padding-left:40%">
+    <select id="select" class="form-control">
+        <option></option>
+        <option>Id</option>
+        <option>MaintenanceMasterId</option>
+        <option>EquipmentPartId</option>
+        <option>Description</option>
+        <option>Periodicity</option>
+        <option>Emergency</option>
+    </select>
+</div>
+<style>
+    #tooltip {
+        position: absolute;
+        z-index: 1001;
+        display: none;
+        border: 2px solid #ebebeb;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #fff;
+    }
+</style>
+<div>
+    <table id="table_id" class="table table-striped table-bordered">
+        <thead style="color: black">
+            <tr style="text-align:center">
+                <th style="background-color:white; width:auto">
+                    Id
+                </th>
+                <th style=" background-color:white; width:auto">
+                    PPM Id
+                </th>
+                <th style="background-color:white; width:auto">
+                    Equipment Id
+                </th>
+                <th style=" background-color:white; width:auto">
+                    Description
+                </th>
+                <th style="background-color:white; width:auto">
+                    Periodicity
+                </th>
+                <th style="background-color:white; width:auto">
+                    Emergency
+                </th>
+                <th>Edit</th>
+        </thead>
+    </table>
+</div>
+
+<script type="text/javascript">
+    var table = $('#table_id').DataTable({
+        "processing": true,
+        "serverSide": true,
+        "orderMulti": false,
+        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        "ajax": {
+            "url": '../PPM/LoadData',
+            "data": function (d) { d.col = document.querySelector('#select').selectedIndex; },
+            "type": 'POST',
+            "datatype": 'json'
+        },
+        "columns": [
+            { 'data': 'tranx_Id' ,'name':'tranx_Id'},
+            { 'data': 'maintenanceMasterId', 'name':'maintenanceMasterId'},
+            { 'data': 'equipmentPartId', 'name':'equipmentPartId'},
+            { 'data': 'description', 'name':'description'},
+            { 'data': 'periodicity', 'name':'periodicity' },
+            {
+                'data': 'emergencyMaintenance', 'name':'emergencyMaintenance',
+                "render": function (value) {
+                    if (value === true) return "Yes";
+                    else return "No";
+
+                },
+            },
+            {
+                'data': null,
+                'render': function (data) {
+                    return '<a href="#" class="glyphicon glyphicon-pencil edit-btn" id="' + data.tranx_Id + '"></button>';
+                }, "orderable": false
+            }
+        ],
+        'dom': 'lBfrtip',
+        'buttons': ["excelHtml5", "pdfHtml5"],
+        "language": {
+            "emptyTable": "No data available"
+        }
+    });
+
+
+    $('#table_id tbody').on('click', '.edit-btn', function () {
+        var data_row = table.row($(this).closest('tr')).data();       
+        $('#myModal1').on('shown.bs.modal', function () {            
+            $('#MaintenanceMasterId').val(data_row.maintenanceMasterId);
+            $('#Description').val(data_row.description);
+            $('#EquipmentPartId').val(data_row.equipmentPartId);
+            $('#Periodicity').val(data_row.periodicity);
+            $('#EmergencyMaintenance').val(data_row.emergencyMaintenance);
+        });
+        $('#myModal1').modal('show');
+    });
+
+    $('#select').change(function () {
+        var i = $('#select').val();
+        table.draw();
+    });
+</script>

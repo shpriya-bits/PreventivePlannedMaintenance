@@ -1,0 +1,195 @@
+﻿@{
+    Layout = "~/Views/Shared/_PPMLayout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Equipment Details</title>
+</head>
+<body>
+    <table width="100%">
+        <tr>
+            <td>
+                <button type="button" id="sidebarCollapse" class="btn btn-info navbar-btn">
+                    <i class="glyphicon glyphicon-align-left"></i>
+                    <p>Menu</p>
+                </button>
+            </td>
+            <td align="center">
+                <h2>Equipment Master</h2>
+            </td>
+            <td align="right">
+                <a href="@Url.Action("Welcomepage","Home")">
+                    <div class="glyphicon glyphicon-home" style="margin-left:80%; color:royalblue">Home</div>
+                </a>
+            </td>
+            <td align="left">
+                <a href="@Url.Action("LogOut","Home")">
+                    <div class="glyphicon glyphicon-off" style="margin-left:40%;color:orangered">SignOut</div>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <div align="right" style="padding-left:4%;color:blue">
+        <button type="button" id="AddNew" class="btn btn-info" onclick="_AddNew()">Add New</button>
+    </div>
+    <div style="padding-left:5%">
+        <partial name="_details" />
+    </div>
+
+    <div class="overlay"></div>
+    <div id='myModal' style="text-align:right; background-color:transparent; color:cornflowerblue" class="modal fade"
+         data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" style="width:60%; height:auto; padding:10px;top:5%; color:white ">
+            <div class="modal-content" style="overflow: auto;padding: 2%; padding-left:5%">
+                <button type="button" id="closbtn" class="btn btn-info navbar-btn" style="background-color:palevioletred">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    <span>Close</span>
+                </button>
+                <div style="height:auto"> </div>
+                <div id='myModalContent'
+                     style="width:auto; height:auto; padding:10px;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal1" class="modal" role="dialog">
+        <div class="modal-dialog" style="width:1000px">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit</h4>
+                </div>
+
+                @using (Html.BeginForm("Update", "Eqpt", FormMethod.Post, new { @id = "form1" }))
+                {
+                    <div class="modal-body">
+                        <table width="100%">
+                            <tr>
+                                <td width="45%">
+                                    <div class="form-group">
+                                        <label for="EquipmentPartId">Equipment Id</label>
+                                        <input type="text" class="form-control" id="EquipmentPartId" name="EquipmentPartId">
+                                    </div>
+                                </td>
+                                <td width="10%"></td>
+                                <td width="45%">
+                                    <div class="form-group">
+                                        <label for="Description">Description</label>
+                                        <input type="text" class="form-control" id="Description" name="Description">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="45%">
+                                    <div class="form-group">
+                                        <label for="ParentEquipmentPartId">Parent EquipmentId</label>
+                                        <input type="text" class="form-control" id="ParentEquipmentPartId" name="ParentEquipmentPartId">
+                                    </div>
+
+                                </td>
+                                <td width="10%"></td>
+                                <td width="45%">
+                                    <div class="form-group">
+                                        <label for="EquipmentType">Type</label>
+                                        <input type="text" class="form-control" id="EquipmentType" name="EquipmentType">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="45%">
+                                    <div class="form-group">
+                                        <label for="Compartment">Compartment</label>
+                                        <input type="text" class="form-control" id="Compartment" name="Compartment">
+                                    </div>
+                                </td>
+                                <td width="10%"></td>
+                                <td width="45%">
+                                    <div class="form-group">
+                                        <label for="IsPhysical">IsPhysical</label>
+                                        <input type="text" class="form-control" id="IsPhysical" name="IsPhysical">
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">Update</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#EquipmentId').attr('readonly', 'true');
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#dismiss, .overlay').on('click', function () {
+                $('#sidebar').removeClass('active');
+                $('.overlay').fadeOut();
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').addClass('active');
+                $('.overlay').fadeIn();
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            });
+
+
+            if ('@TempData["msg"]' != "") {
+                if ('@TempData["msg"]' == "Updated Successfully") {
+                    swal("Success", '@TempData["msg"]', "success");
+                }
+                else  {
+                    swal("Failed", '@TempData["msg"]', "error");
+                }            
+            }
+
+        });
+
+        $('#Update').on('click', function () {
+            alert('hi');
+            $('#Update').attr("type", "submit");
+        });
+        $("#closbtn").click(function () {
+            window.location.reload();
+        });
+        function _AddNew() {     
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("AddNew", "Eqpt", new { area = "" })',               
+                success: function (data) {
+                    {                        
+                        $('#myModalContent').html(data);
+                        //   $('#myModal').modal(options);
+                        $('#myModal').modal({show:true});
+                        $('#myModal').modal({ backdrop: 'static', keyboard: false })                        
+                    }
+                },
+                failure: function (data) {
+                    alert("Failure");
+                },
+                error: function (data) {
+                    alert("Unexpected Error occured");
+                }
+            });
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+﻿@model DataLayer.Models.Equipment_masterModel
+
+<style type="text/css">
+    .swalcss {
+        font-size: 9px;
+        background-color: aliceblue;
+        width: auto;
+    }
+
+    .ui-autocomplete-input {
+        border: none;
+        font-size: 14px;
+        /*width: 300px;
+        height: 24px;*/
+        margin-bottom: 5px;
+        padding-top: 2px;
+        border: 1px solid #DDD !important;
+        padding-top: 0px !important;
+        z-index: 1511;
+        position: relative;
+    }
+
+    .ui-menu .ui-menu-item a {
+        font-size: 12px;
+    }
+
+    .ui-autocomplete {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1510 !important;
+        float: left;
+        display: none;
+        min-width: 160px;
+        /*width: 160px;*/
+        padding: 4px 0;
+        margin: 2px 0 0 0;
+        list-style: none;
+        background-color: #ffffff;
+        border-color: #ccc;
+        border-color: rgba(0, 0, 0, 0.2);
+        border-style: solid;
+        border-width: 1px;
+        -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        *border-right-width: 2px;
+        *border-bottom-width: 2px;
+    }
+
+    .ui-menu-item > a.ui-corner-all {
+        display: block;
+        padding: 3px 15px;
+        clear: both;
+        font-weight: normal;
+        line-height: 18px;
+        color: #555555;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+
+    .ui-state-hover, .ui-state-active {
+        color: #ffffff;
+        text-decoration: none;
+        background-color: #0088cc;
+        border-radius: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        background-image: none;
+    }
+
+    /*#modalIns {
+        width: 500px;
+    }*/
+</style>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" http-equiv="X-UA-Compatible" />
+    <title>Add New Equipment</title>
+    
+</head>
+<body>
+    <div style="width: 100%;  text-align: left;">
+        <div style=" color:black;display: inline-block; margin-bottom:3%;width:100%;text-align:center">
+            <h2>New Equipment Details</h2>
+        </div>
+        <br />
+        <div style=" color:black;display: inline-block; margin-bottom:3%;width:100%">
+            <form>
+                <table width="100%">
+                    <tr>
+                        <td width="45%">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.EquipmentPartId)
+                                @Html.TextBoxFor(m => m.EquipmentPartId, new { @class = "form-control", @placeholder = "Enter EquipmentId" })
+                                @Html.ValidationMessageFor(m => m.EquipmentPartId, "", new { @style = "color:red" })
+                            </div>
+                        </td>
+                        <td width="10%"></td>
+                        <td width="45%">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ParentEquipmentPartId)
+                                @Html.TextBoxFor(m => m.ParentEquipmentPartId, new { @class = "form-control", @placeholder = "Enter Parent EquipmentId" })
+                                @Html.ValidationMessageFor(m => m.ParentEquipmentPartId, "", new { @style = "color:red" })
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="45%">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Description)
+                                @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @placeholder = "Enter Equipment Name / Description" })
+                                @Html.ValidationMessageFor(m => m.Description, "", new { @style = "color:red" })
+                            </div>
+                        </td>
+                        <td width="10%"> </td>
+                        <td width="45%">
+                            <div class="form-group ui-front">
+                                @Html.LabelFor(m => m.EquipmentType)
+                                @Html.TextBoxFor(m => m.EquipmentType, new { @id = "a_type", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.EquipmentType, "", new { @style = "color:red" })
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="45%">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Compartment)
+                                @Html.TextBoxFor(m => m.Compartment, new { @class = "form-control", @placeholder = "Enter Compartment" })
+                            </div>
+
+                        </td>
+                        <td width="10%"></td>
+                        <td width="45%">
+                            <div class="form-group custom-control custom-switch">
+                                @Html.CheckBoxFor(m => m.IsPhysical, new { @class = "custom-control-input" })
+                                @Html.Label("Is Physical")
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" value="Submit" onclick="AddNewEqpt()" class="btn btn-success" />
+                        </td>
+                        <td>
+                            <span style="color:green">@Html.Raw(ViewBag.Message)</span>
+                        </td>
+                    </tr>
+
+                </table>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+        
+    function AddNewEqpt() {
+                       
+        $.ajax({
+               type: "post",
+            url: '@Url.Action("AddEqpt", "Eqpt",new { area=""})',
+                       data:'@Model',      
+               processData: false,
+               contentType: false,
+               success: function (data) {
+                  if (data.success) {                      
+                           swal(data.title, data.message, "Success");
+                   }    
+                   else {
+                           swal(data.title, data.message, "error");
+                   }
+               }
+           })
+        }
+    
+</script>

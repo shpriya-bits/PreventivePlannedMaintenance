@@ -1,0 +1,113 @@
+﻿<div align="right" style="padding-left:40%">
+    <select id="select">
+        <option></option>
+        <option>Id</option>
+        <option>EquipmentPartId</option>
+        <option>Description</option>
+        <option>Parent Id</option>
+        <option>Equipment Type</option>
+        <option>Compartment</option>
+        <option>IsPhysical</option>
+    </select>
+</div>
+<style>
+    #tooltip {
+        position: absolute;
+        z-index: 1001;
+        display: none;
+        border: 2px solid #ebebeb;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #fff;
+    }
+</style>
+<div>
+    <table id="table_id" class="table table-striped table-bordered">
+        <thead style="color: black">
+            <tr style="text-align:center">
+                <th style="background-color:white; width:auto">
+                    Id
+                </th>
+                <th style="background-color:white; width:auto">
+                    EqptId
+                </th>
+                <th style="background-color:white; width:auto">
+                    Equipment Name
+                </th>
+                <th style="background-color:white; width:auto">
+                    ParentId
+                </th>
+                <th>Equipment Type</th>
+                <th style="background-color:white; width:auto">
+                    IsPhysical
+                </th>
+
+                <th style="background-color:white; width:auto">
+                    Compartment
+                </th>
+                <th>Edit</th>
+        </thead>
+    </table>
+</div>
+
+<script type="text/javascript">
+    var table = $('#table_id').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "orderMulti": false,
+            "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+            "ajax": {
+                "url": '../Eqpt/LoadData',                
+                "type": 'POST',
+                "data": function (d) { d.col = document.querySelector('#select').selectedIndex; },
+                "datatype": 'json'
+            },
+            "columns": [
+                { 'data': 'tranx_Id', 'name': 'tranx_Id' },
+                { 'data': 'equipmentPartId', 'name': 'equipmentPartId' },
+                { 'data': 'description', 'name': 'description' },
+                { 'data': 'parentEquipmentPartId', 'name': 'parentEquipmentPartId' },
+                { 'data': 'equipmentType', 'name': 'equipmentType' },
+                {
+                    'data': 'isPhysical', 'name': 'isPhysical',
+                    "render": function (value) {
+                        if (value === true) return "Yes";
+                        else return "No";
+
+                    },
+                },
+                { 'data': 'compartment', 'name': 'compartment' },
+                {
+                    'data': null,
+                    'render': function (data) {
+                        return '<a href="#" class="glyphicon glyphicon-pencil edit-btn" id="' + data.tranx_Id + '"></button>';
+                    }, "orderable": false
+                }
+            ],
+            'dom': 'lBfrtip',
+            'buttons': ["excelHtml5", "pdfHtml5"],
+            "language": {
+                "emptyTable": "No data available"
+            }
+        });
+
+        $('#table_id tbody').on('click', '.edit-btn', function () {
+            var data_row = table.row($(this).closest('tr')).data();
+            $('#myModal1').on('shown.bs.modal', function () {                
+                $('#EquipmentPartId').val(data_row.equipmentPartId);
+                $('#Description').val(data_row.description);
+                $('#ParentEquipmentPartId').val(data_row.parentEquipmentPartId);
+                $('#IsPhysical').val(data_row.isPhysical);
+                $('#Compartment').val(data_row.compartment);
+                $('#EquipmentType').val(data_row.equipmentType);
+            });
+            $('#myModal1').modal({ show: true });
+            
+        });
+   
+        $('#select').change(function () {
+            var i = $('#select').val();//document.querySelector('#select').val;
+            table.draw();
+        });
+    
+</script>
