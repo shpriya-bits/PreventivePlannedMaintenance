@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Equipment Details</title>
+    <title>Defect Details</title>
 </head>
 <body>
     <table width="100%">
@@ -20,7 +20,7 @@
                 </button>
             </td>
             <td align="center">
-                <h2>Equipment Master</h2>
+                <h2>Defect</h2>
             </td>
             <td align="right">
                 <a href="@Url.Action("Welcomepage","Home")">
@@ -35,7 +35,7 @@
         </tr>
     </table>
     <div align="right" style="padding-left:4%;color:blue">
-        <button type="button" id="AddNew" class="btn btn-info" onclick="AddEqpt()">Add New</button>
+        <button type="button" id="AddNew" class="btn btn-info" onclick="_AddNew()">Add New</button>
     </div>
     <div style="padding-left:5%">
         <partial name="_details" />
@@ -66,15 +66,15 @@
                     <h4 class="modal-title">Edit</h4>
                 </div>
 
-                @using (Html.BeginForm("Update", "Eqpt", FormMethod.Post, new { @id = "form1" }))
+                @using (Html.BeginForm("Update", "Defect", FormMethod.Post, new { @id = "form1" }))
                 {
                     <div class="modal-body">
                         <table width="100%">
                             <tr>
                                 <td width="45%">
                                     <div class="form-group">
-                                        <label for="EquipmentPartId">Equipment Id</label>
-                                        <input type="text" class="form-control" id="EquipmentPartId" name="EquipmentPartId">
+                                        <label for="DefectId">Defect Id</label>
+                                        <input type="text" class="form-control" id="DefectId" name="DefectId">
                                     </div>
                                 </td>
                                 <td width="10%"></td>
@@ -88,38 +88,45 @@
                             <tr>
                                 <td width="45%">
                                     <div class="form-group">
-                                        <label for="ParentEquipmentPartId">Parent EquipmentId</label>
-                                        <input type="text" class="form-control" id="ParentEquipmentPartId" name="ParentEquipmentPartId">
+                                        <label for="EquipmentPartId"> EquipmentId</label>
+                                        <input type="text" class="form-control" id="EquipmentPartId" name="EquipmentPartId">
                                     </div>
 
                                 </td>
                                 <td width="10%"></td>
                                 <td width="45%">
                                     <div class="form-group">
-                                        <label for="EquipmentType">Type</label>
-                                        <input type="text" class="form-control" id="EquipmentType" name="EquipmentType">
+                                        <label for="DOO">Date Of Occurance</label>
+                                        <input type="text" class="form-control" id="DOO" name="DOO">
                                     </div>
                                 </td>
                             </tr>
                             <tr>
                                 <td width="45%">
                                     <div class="form-group">
-                                        <label for="Compartment">Compartment</label>
-                                        <input type="text" class="form-control" id="Compartment" name="Compartment">
+                                        <label for="Status">Operational Status</label>
+                                        <input type="text" class="form-control" id="Status" name="Status">
                                     </div>
                                 </td>
                                 <td width="10%"></td>
                                 <td width="45%">
                                     <div class="form-group">
-                                        <label for="IsPhysical">IsPhysical</label>
-                                        <input type="text" class="form-control" id="IsPhysical" name="IsPhysical">
+                                        <label for="IEDC">Initial Estimate Date of Completion</label>
+                                        <input type="text" class="form-control" id="IEDC" name="IEDC">
                                     </div>
-
                                 </td>
+
                             </tr>
-
+                            <tr>
+                                <td width="45%">
+                                    <div class="form-group">
+                                        <label for="REDC">Revised Date of Completion</label>
+                                        <input type="text" class="form-control" id="REDC" name="REDC">
+                                    </div>
+                                </td>
+                                <td width="10%"></td>
+                            </tr>
                         </table>
-
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-default">Update</button>
@@ -129,82 +136,12 @@
             </div>
         </div>
     </div>
-    <div id="myModal2" class="modal" role="dialog">
-        <div class="modal-dialog" style="width:1000px">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add New</h4>
-                </div>
-
-                @using (Html.BeginForm("AddEqpt", "Eqpt", FormMethod.Post, new { @id = "form1" }))
-                {
-                    <div class="modal-body">
-                        <table width="100%">
-                            <tr>
-                                <td width="45%">
-                                    <div class="form-group">
-                                        <label for="EquipmentPartId">Equipment Id</label>
-                                        <input type="text" class="form-control" id="EquipmentPartId" name="EquipmentPartId">
-                                    </div>
-                                </td>
-                                <td width="10%"></td>
-                                <td width="45%">
-                                    <div class="form-group">
-                                        <label for="Description">Description</label>
-                                        <input type="text" class="form-control" id="Description" name="Description">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="45%">
-                                    <div class="form-group">
-                                        <label for="ParentEquipmentPartId">Parent EquipmentId</label>
-                                        <input type="text" class="form-control" id="ParentEquipmentPartId" name="ParentEquipmentPartId">
-                                    </div>
-
-                                </td>
-                                <td width="10%"></td>
-                                <td width="45%">
-                                    <div class="form-group">
-                                        <label for="EquipmentType">Type</label>
-                                        <input type="text" class="form-control" id="EquipmentType" name="EquipmentType">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="45%">
-                                    <div class="form-group">
-                                        <label for="Compartment">Compartment</label>
-                                        <input type="text" class="form-control" id="Compartment" name="Compartment">
-                                    </div>
-                                </td>
-                                <td width="10%"></td>
-                                <td width="45%">
-                                    <div class="form-group">
-                                        <label for="IsPhysical">IsPhysical</label>
-                                        <input type="text" class="form-control" id="IsPhysical" name="IsPhysical">
-                                    </div>
-
-                                </td>
-                            </tr>
-
-                        </table>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-default">Create</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                }
-            </div>
-        </div>
-    </div>
     <script type="text/javascript">
 
         $(document).ready(function () {
-            $('#EquipmentId').attr('readonly', 'true');
+            $('#DOO').datepicker({ dateFormat: 'dd/mm/yy' }).val();
+            $('#IEDC').datepicker({ dateFormat: 'dd/mm/yy' }).val();
+            $('#REDC').datepicker({ dateFormat: 'dd/mm/yy' }).val();
             $("#sidebar").mCustomScrollbar({
                 theme: "minimal"
             });
@@ -224,7 +161,7 @@
 
             if ('@TempData["msg"]' != "") {
                 if ('@TempData["msg"]' == "Updated Successfully") {
-                    swal("Success", '@TempData["no"]', "success");
+                    swal("Success", '@TempData["msg"]', "success");
                 }
                 else  {
                     swal("Failed", '@TempData["msg"]', "error");
@@ -240,11 +177,27 @@
         $("#closbtn").click(function () {
             window.location.reload();
         });
-
-        function AddEqpt() {            
-            $('#myModal2').modal({ show: true });
+        function _AddNew() {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("AddNew", "Eqpt", new { area = "" })',
+                success: function (data) {
+                    {
+                        $('#myModalContent').html(data);
+                        //   $('#myModal').modal(options);
+                        $('#myModal').modal({show:true});
+                        $('#myModal').modal({ backdrop: 'static', keyboard: false })
+                    }
+                },
+                failure: function (data) {
+                    alert("Failure");
+                },
+                error: function (data) {
+                    alert("Unexpected Error occured");
+                }
+            });
         }
-
     </script>
 </body>
 </html>
+

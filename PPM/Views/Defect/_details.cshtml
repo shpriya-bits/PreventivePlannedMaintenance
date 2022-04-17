@@ -2,12 +2,10 @@
     <select id="select">
         <option></option>
         <option>Id</option>
-        <option>EquipmentPartId</option>
+        <option>DefectId</option>
+        <option>EquipmentId</option>
         <option>Description</option>
-        <option>Parent Id</option>
-        <option>Equipment Type</option>
-        <option>Compartment</option>
-        <option>IsPhysical</option>
+        <option>Status</option>
     </select>
 </div>
 <style>
@@ -29,21 +27,21 @@
                     Id
                 </th>
                 <th style="background-color:white; width:auto">
-                    EqptId
+                    DefectId
                 </th>
                 <th style="background-color:white; width:auto">
-                    Equipment Name
+                    Description
                 </th>
                 <th style="background-color:white; width:auto">
-                    ParentId
+                    EquipmentId
                 </th>
-                <th>Equipment Type</th>
+                <th>Date Of Occurance</th>
                 <th style="background-color:white; width:auto">
-                    IsPhysical
+                    Initial Estimated Date Of Completion
                 </th>
 
                 <th style="background-color:white; width:auto">
-                    Compartment
+                    Revised Estimated Date Of Completion
                 </th>
                 <th>Edit</th>
         </thead>
@@ -57,26 +55,20 @@
             "orderMulti": false,
             "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
             "ajax": {
-                "url": '../Eqpt/LoadData',                
+                "url": '../Defect/LoadData',
                 "type": 'POST',
                 "data": function (d) { d.col = document.querySelector('#select').selectedIndex; },
                 "datatype": 'json'
             },
             "columns": [
                 { 'data': 'tranx_Id', 'name': 'tranx_Id' },
-                { 'data': 'equipmentPartId', 'name': 'equipmentPartId' },
+                { 'data': 'defectId', 'name': 'defectId' },
                 { 'data': 'description', 'name': 'description' },
-                { 'data': 'parentEquipmentPartId', 'name': 'parentEquipmentPartId' },
-                { 'data': 'equipmentType', 'name': 'equipmentType' },
-                {
-                    'data': 'isPhysical', 'name': 'isPhysical',
-                    "render": function (value) {
-                        if (value === true) return "Yes";
-                        else return "No";
-
-                    },
-                },
-                { 'data': 'compartment', 'name': 'compartment' },
+                { 'data': 'equipmentPartId', 'name': 'equipmentPartId' },
+                { 'data': 'dateOfOccurance', 'name': 'dateOfOccurance' },
+                { 'data': 'operationalStatus', 'name': 'operationalStatus' },
+                { 'data': 'initialEstimateDateOfCompletion', 'name': 'initialEstimateDateOfCompletion' },
+                { 'data': 'revisedEstimateDateOfCompletion', 'name': 'revisedEstimateDateOfCompletion' },
                 {
                     'data': null,
                     'render': function (data) {
@@ -93,21 +85,22 @@
 
         $('#table_id tbody').on('click', '.edit-btn', function () {
             var data_row = table.row($(this).closest('tr')).data();
-            $('#myModal1').on('shown.bs.modal', function () {                
-                $('#EquipmentPartId').val(data_row.equipmentPartId);
+            $('#myModal1').on('shown.bs.modal', function () {
+                $('#DefectId').val(data_row.defectId);
                 $('#Description').val(data_row.description);
-                $('#ParentEquipmentPartId').val(data_row.parentEquipmentPartId);
-                $('#IsPhysical').val(data_row.isPhysical);
-                $('#Compartment').val(data_row.compartment);
-                $('#EquipmentType').val(data_row.equipmentType);
+                $('#EquipmentPartId').val(data_row.equipmentPartId);
+                $('#DOO').val(data_row.dateOfOccurance);
+                $('#Status').val(data_row.operationalStatus);
+                $('#IEDC').val(data_row.initialEstimateDateOfCompletion);
+                $('#REDC').val(data_row.revisedEstimateDateOfCompletion);
             });
             $('#myModal1').modal({ show: true });
-            
+
         });
 
-    $('#select').change(function () {
+        $('#select').change(function () {
             var i = $('#select').val();//document.querySelector('#select').val;
             table.draw();
         });
-    
+
 </script>

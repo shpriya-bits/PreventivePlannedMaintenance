@@ -35,7 +35,6 @@ namespace PreventivePlannedMaintenance.Controllers
             var sortColumn = HttpContext.Request.Form["columns[" + HttpContext.Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
             var sortColumnDir = HttpContext.Request.Form["order[0][dir]"].FirstOrDefault();
 
-
             int pageSize = length != null ? Convert.ToInt32(length) : 0;
             int skip = start != null ? Convert.ToInt32(start) : 0;
             int recordsTotal = 0;
@@ -50,22 +49,7 @@ namespace PreventivePlannedMaintenance.Controllers
             return Ok(json);
 
         }
-
-        public ActionResult AddNew()
-        {
-            try
-            {
-                Equipment_masterModel eqptModel = new Equipment_masterModel();
-                return View("_AddNew", eqptModel);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Message += ex;
-                return View();
-
-            }
-        }
-
+                
         [HttpPost]
         public ActionResult AddEqpt(Equipment_masterModel eqptModel)
         {
@@ -76,22 +60,28 @@ namespace PreventivePlannedMaintenance.Controllers
                 {
                     iCreated = businessLayer.AddEqpt(eqptModel);
                     if (iCreated == 1)
-                        return Json(new { success = true, title = "New Equipment Status", message = "New Equipment Added" });
+                    {
+                        TempData["msg"] = "Updated Successfully";
+                        TempData["no"] = eqptModel.EquipmentPartId + " - Equipment Created";
+                        return RedirectToAction("Eqpt_Index");
+                    }                       
                     else
                     {
-                        return Json(new { success = false, title = "New equipment status", message = "Error while inserting the record" });
+                        TempData["msg"] = "New Equipment creation Failed";
+                        return RedirectToAction("Eqpt_Index");
                     }
                 }
                 catch (Exception ex)
                 {
                     ViewBag.Message += ex;
-                    return Json("Error occurred. Error details: " + ex.Message);
+                    TempData["msg"] = "Failed with error - " + ex.ToString();
+                    return RedirectToAction("Eqpt_Index");
                 }
             }
             else
             {
-                return Json(new { success = false, title = "Validation", message = "Validation Error" });
-
+                TempData["msg"] = "Validation Error";
+                return RedirectToAction("Eqpt_Index");
             }
 
         }
@@ -117,7 +107,7 @@ namespace PreventivePlannedMaintenance.Controllers
 
                 }
                 TempData["msg"] = "Failed..Try Again";
-                return RedirectToAction("Dean_Index");
+                return RedirectToAction("Eqpt_Index");
             }
             catch (Exception ex)
             {

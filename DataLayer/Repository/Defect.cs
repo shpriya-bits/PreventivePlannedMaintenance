@@ -25,6 +25,7 @@ namespace DataLayer.Repository
         public Nullable<System.DateTime> CreatedTs { get; set; }
         public string ChangedBy { get; set; }
         public Nullable<System.DateTime> ChangedTs { get; set; }
+        public long tranx_Id { get; set; }
     
         public virtual equipment_master equipment_master { get; set; }
         public virtual FinancialCases FinancialCases { get; set; }
